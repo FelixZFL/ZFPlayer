@@ -301,8 +301,8 @@
     if ((loadState & IJKMPMovieLoadStatePlayable)) {
         ZFPlayerLog(@"加载状态变成了缓存数据足够开始播放，但是视频并没有缓存完全");
         if (self.player.currentPlaybackTime > 0) {
-            self.loadState = ZFPlayerLoadStatePlayable;
         }
+        self.loadState = ZFPlayerLoadStatePlayable;
     } else if ((loadState & IJKMPMovieLoadStatePlaythroughOK)) {
         // 加载完成，即将播放，停止加载的动画，并将其移除
         ZFPlayerLog(@"加载状态变成了已经缓存完成，如果设置了自动播放, 会自动播放");

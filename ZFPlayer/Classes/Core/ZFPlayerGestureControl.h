@@ -31,7 +31,8 @@ typedef NS_ENUM(NSUInteger, ZFPlayerGestureType) {
     ZFPlayerGestureTypeSingleTap,
     ZFPlayerGestureTypeDoubleTap,
     ZFPlayerGestureTypePan,
-    ZFPlayerGestureTypePinch
+    ZFPlayerGestureTypePinch,
+    ZFPlayerGestureTypeLongPress
 };
 
 typedef NS_ENUM(NSUInteger, ZFPanDirection) {

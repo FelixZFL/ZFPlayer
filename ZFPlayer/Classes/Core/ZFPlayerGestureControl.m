@@ -45,6 +45,8 @@
     self.targetView.multipleTouchEnabled = YES;
     [self.singleTap requireGestureRecognizerToFail:self.doubleTap];
     [self.singleTap  requireGestureRecognizerToFail:self.panGR];
+    [self.singleTap  requireGestureRecognizerToFail:self.longPressGR];
+    [self.panGR  requireGestureRecognizerToFail:self.longPressGR];
     [self.targetView addGestureRecognizer:self.singleTap];
     [self.targetView addGestureRecognizer:self.doubleTap];
     [self.targetView addGestureRecognizer:self.panGR];
@@ -80,6 +82,7 @@
     else if (gestureRecognizer == self.doubleTap) type = ZFPlayerGestureTypeDoubleTap;
     else if (gestureRecognizer == self.panGR) type = ZFPlayerGestureTypePan;
     else if (gestureRecognizer == self.pinchGR) type = ZFPlayerGestureTypePinch;
+    else if (gestureRecognizer == self.longPressGR) type = ZFPlayerGestureTypeLongPress;
     CGPoint locationPoint = [touch locationInView:touch.view];
     if (locationPoint.x > _targetView.bounds.size.width / 2) {
         self.panLocation = ZFPanLocationRight;
@@ -113,11 +116,12 @@
             }
         }
             break;
-        case ZFPlayerDisableGestureTypesLongPress: {
+        case ZFPlayerGestureTypeLongPress: {
             if (self.disableTypes & ZFPlayerDisableGestureTypesLongPress) {
                 return NO;
             }
         }
+            break;
     }
     
     if (self.triggerCondition) return self.triggerCondition(self, type, gestureRecognizer, touch);
@@ -197,6 +201,8 @@
         _longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         _longPressGR.delegate = self;
         _longPressGR.delaysTouchesBegan = YES;
+        _longPressGR.delaysTouchesEnded = YES;
+        _longPressGR.minimumPressDuration = 0.5;
     }
     return _longPressGR;
 }
